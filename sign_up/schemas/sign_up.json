@@ -7,13 +7,8 @@
         "type": "string"
       }
     },
-    "signup_token": {
-      "type": "string",
-      "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-    },
     "cell_no": {
-      "type": "string",
-      "pattern": "\\+[0-9]{12}"
+      "type": "string"
     },
     "username": {
       "type": "string"
@@ -30,8 +25,6 @@
     }
   },
   "required": [
-    "signup_token",
-    "cell_no",
     "username",
     "password"
   ],

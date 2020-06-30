@@ -33,16 +33,6 @@ class BasicRepository():
             **data).end().first()
         return result
 
-    def search_in_tags(self, data):
-
-        query = self.db_session.query(self.model).filter(
-            self.model.tags.any(data['tags']))
-        if 'person_id' in data:
-            query.filter(self.model.person_id == data.get('person_id'))
-        if 'status' in data:
-            query.filter(self.model.status == data.get('status'))
-        result = query.order_by(self.model.creation_date.desc()).all()
-        return result
 
     def get_all_by_data(self, data):
         if data.get('sort') is None:
@@ -68,7 +58,6 @@ class BasicRepository():
         return instance
 
     def update_by_instance(self, instance, data):
-        self.version_check(instance, data.get('version'))
         instance.populate_data(data)
         instance.edit_basic_data(self.username)
         return instance
@@ -78,7 +67,6 @@ class BasicRepository():
         if instance is None:
             logger.error(LogMsg.NOT_FOUND, {'instance_id': id})
             return False
-        self.version_check(instance, data.get('version'))
 
         instance.populate_data(data)
         instance.edit_basic_data(self.username)
@@ -86,16 +74,11 @@ class BasicRepository():
         return instance
 
     def delete_by_model(self, model_instance, version=None):
-        self.version_check(model_instance, version)
-
         self.db_session.delete(model_instance)
         return True
 
     def delete_by_id(self, id, version=None):
         model_instance = self.get_by_id(id)
-        if version:
-            self.version_check(model_instance, version)
-
         self.db_session.delete(model_instance)
         return True
 
@@ -118,9 +101,3 @@ class BasicRepository():
             **data).end().all()
 
         return result
-
-    def version_check(self, model, version=None):
-        if version is not None:
-            if model.version != version:
-                logger.error(LogMsg.VERSION_CONFLICT)
-                raise Http_error(409, Message.VERSION_CONFLICT)

@@ -1,6 +1,6 @@
 from accounts.models import Account
 from controller_model import BasicController
-from enums import check_enum, AccountTypes
+from enums import  AccountTypes
 from financial_transactions.controller import transaction_controller
 from helper import Http_error, Http_response
 from log import LogMsg
@@ -41,16 +41,11 @@ class AccountController(BasicController):
         person = person_repository.get_by_id(person_id)
         if person is None:
             logger.error(LogMsg.NOT_FOUND, {'person_id': person_id})
-            raise Http_error(404, Message.Invalid_persons)
-        check_enum(data.get('type'), AccountTypes)
-        logger.debug(LogMsg.ENUM_CHECK,
-                     {'enum': data.get('type'), 'reference_enum': 'AccountTypes'})
+            raise Http_error(404, Message.NOT_FOUND)
 
-        logger.info(LogMsg.GETTING_USER_ACCOUNTS, type)
 
         account = self.exists(data.get('type'), person_id, db_session)
         if account is not None:
-            logger.error(LogMsg.ACCOUNT_BY_TYPE_EXISTS, data.get('type'))
             raise Http_error(409, Message.ALREADY_EXISTS)
 
         account = super(AccountController, self).add(data, db_session, username,
@@ -63,15 +58,12 @@ class AccountController(BasicController):
     def get(self, person_id, type, db_session,username=None, schema_checked=False,
             permission_checked=False):
         logger.info(LogMsg.START)
-        logger.debug(LogMsg.GETTING_USER_ACCOUNTS, type)
         data = dict(filter=dict(person_id=person_id, type=type))
         try:
             result = super(AccountController, self).get_by_data(data, db_session,
                                                                 username,
                                                                 schema_checked,
                                                                 permission_checked)
-            if not result:
-                logger.debug(LogMsg.USER_HAS_NO_ACCOUNT, type)
         except Exception as e:
             logger.error(LogMsg.GET_FAILED,
                          {'person_id': person_id, 'account_type': type},
@@ -86,7 +78,6 @@ class AccountController(BasicController):
                             permission_checked=False):
         logger.info(LogMsg.START, username)
         data = dict(filter=dict(person_id=person_id))
-        logger.debug(LogMsg.GETTING_PERSON_ALL_ACCOUNTS, person_id)
         result = super(AccountController, self).get_all_by_data(data, db_session,
                                                                 username,
                                                                 permission_checked)
@@ -110,7 +101,7 @@ class AccountController(BasicController):
         user_repository = UserRepository.generate(User, db_session, username)
         user = user_repository.get_by_username(username)
         if user is None:
-            logger.error(LogMsg.INVALID_USER, username)
+            logger.error(LogMsg.NOT_FOUND, username)
             raise Http_error(404, Message.INVALID_USER)
 
         if data.get('filter') is None:
@@ -126,10 +117,9 @@ class AccountController(BasicController):
         user_repository = UserRepository.generate(User, db_session, username)
         user = user_repository.get_by_username(username)
         if user is None:
-            logger.error(LogMsg.INVALID_USER, username)
+            logger.error(LogMsg.NOT_FOUND, username)
             raise Http_error(404, Message.INVALID_USER)
         data = dict(filter=dict(person_id=user.person_id))
-        logger.debug(LogMsg.DELETE_USER_ALL_ACCOUNTS, username)
         super(AccountController, self).delete_all_by_data(data, db_session, username,
                                                           schema_checked,
                                                           permission_checked)
@@ -153,7 +143,6 @@ class AccountController(BasicController):
         else:
             transaction_data.update({'debit':value})
         transaction_controller.internal_add(transaction_data,db_session)
-        logger.debug(LogMsg.ACCOUNT_VALUE_EDITED, account.to_dict())
         logger.info(LogMsg.END)
 
         return account.to_dict()
@@ -161,7 +150,6 @@ class AccountController(BasicController):
     def get_by_id(self, id, db_session, username, schema_checked=False,
                   permission_checked=False):
         logger.info(LogMsg.START, username)
-        logger.debug(LogMsg.GETTING_ACCOUNT_BY_ID, id)
         account = super(AccountController, self).get(id, db_session, username,
                                                      permission_checked)
         logger.info(LogMsg.END)
@@ -172,14 +160,12 @@ class AccountController(BasicController):
         logger.info(LogMsg.START, username)
         account = super(AccountController, self).edit(id, data, db_session, username,
                                                       schema_checked, permission_checked)
-        logger.debug(LogMsg.ACCOUNT_VALUE_EDITED, account.to_dict())
         logger.info(LogMsg.END)
         return account.to_dict()
 
     def add_initial_account(self, person_id, db_session, username=None):
         logger.info(LogMsg.START, username)
         data = {'person_id': person_id, 'value': 0.0, 'type': 'Main'}
-        logger.debug(LogMsg.ADD_INITIAL_ACCOUNT, person_id)
         account = super(AccountController, self).add(data, db_session, username,
                                                      permission_checked=True)
         logger.info(LogMsg.END)
@@ -205,13 +191,10 @@ class AccountController(BasicController):
             transaction_data.update({'debit': value})
         transaction_controller.internal_add(transaction_data, db_session)
 
-        logger.debug(LogMsg.ACCOUNT_VALUE_EDITED, account.to_dict())
         logger.info(LogMsg.END)
         return account.to_dict()
 
     def profile_account_info(self, person_id, db_session, username):
-        logger.debug(LogMsg.GETTING_PERSON_ALL_ACCOUNTS,
-                     {'usage': 'profile_account_info'})
         result = self.get_person_accounts(person_id, db_session, username, True)
         for item in result:
             del item['person_id']

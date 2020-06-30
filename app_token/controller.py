@@ -1,4 +1,3 @@
-from uuid import uuid4
 
 from controller_model import BasicController
 from infrastructure.schema_validator import schema_validate

@@ -1,6 +1,5 @@
 from accounts.controller import account_controller
-from check_permission import get_user_permissions, has_permission, \
-    validate_permissions_and_access
+
 from controller_model import BasicController
 from enums import Permissions
 from log import LogMsg, logger
@@ -54,8 +53,6 @@ class UserController(BasicController):
         logger.debug(LogMsg.MODEL_GETTING, {'user_id': id})
         model_instance = super(UserController, self).get(id, db_session, username, True)
         if model_instance:
-            validate_permissions_and_access(username, db_session, 'USER_GET',
-                                            model=model_instance)
             result = model_instance.to_dict()
             logger.debug(LogMsg.GET_SUCCESS, result)
         else:
@@ -135,23 +132,12 @@ class UserController(BasicController):
 
         user = self.get(id, db_session, username)
         if user:
-            validate_permissions_and_access(username, db_session, 'USER_EDIT',
-                                            model=user)
             logger.debug(LogMsg.MODEL_GETTING, {'user_id': id})
             if user.person_id:
                 person = user.person
-                per_data = {}
-                permissions, presses = get_user_permissions(username, db_session)
-                if user['username'] == username:
-                    per_data.update({Permissions.IS_OWNER.value: True})
-                has_permission([Permissions.USER_EDIT_PREMIUM],
-                               permissions, None, per_data)
-
                 if person:
-                    # TODO edit person must be changed
                     person_controller.edit(person.id, db_session, data, username,
                                            permission_checked=True)
-
                 else:
                     raise Http_error(404, LogMsg.NOT_FOUND)
             else:

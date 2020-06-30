@@ -116,3 +116,4 @@ class LogMsg:
     REGISTER_XISTS = 'user has already valid registery code'
     CHECK_USER_EXISTANCE = 'checking user if already exists'
     DATA_MISSING = 'required data doesnt exists in data : %s'
+    SCHEMA_NOT_VALID = 'SCHEMA_NOT_VALID'

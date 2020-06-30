@@ -9,7 +9,8 @@
     },
     "title": {
       "type": "string"
-    },"total_payment": {
+    },
+    "total_payment": {
       "type": "number"
     },"details": {
       "type": "object"

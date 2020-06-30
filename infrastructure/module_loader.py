@@ -8,7 +8,7 @@ def load_all(module_name):
             script = '{}.py'.format(module_name)
             if file.endswith(script):
                 filepath = os.path.join(root, file)
-                if 'venv' not in filepath:
+                if 'env' not in filepath:
                     dir_address = str(os.path.dirname(filepath))
                     dirname = dir_address.split('/')[-1]
                     dircts.append(dirname)

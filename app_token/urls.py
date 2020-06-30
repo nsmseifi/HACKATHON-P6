@@ -1,8 +1,9 @@
 from .controller import token
-from helper import check_auth, inject_db, jsonify, pass_data, wrappers
+from helper import check_auth, inject_db, jsonify, pass_data
 
 
 def call_router(app):
+    wrappers = [check_auth,inject_db,jsonify]
     data_plus_wrappers = (wrappers[:])
     data_plus_wrappers.append(pass_data)
 

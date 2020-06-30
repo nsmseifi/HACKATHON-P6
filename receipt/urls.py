@@ -12,4 +12,3 @@ def call_router(app):
     app.route('/stores', 'POST', store_controller.add, apply=data_plus_wrappers)
     app.route('/stores/_search', 'POST', store_controller.search_store, apply=data_plus_wrappers)
     app.route('/stores/<id>', 'PUT', store_controller.edit, apply=data_plus_wrappers)
-    app.route('/stores/profile', 'GET', store_controller.get_profile, apply=wrappers)

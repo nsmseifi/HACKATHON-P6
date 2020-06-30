@@ -14,7 +14,6 @@ def schema_validate(data,schema_file):
         schema = json.loads(schema_data)
 
         jsonschema.validate(data, schema)
-        logger.debug(LogMsg.SCHEMA_CHECKED)
     except Exception as e:
         logger.exception(LogMsg.SCHEMA_NOT_VALID,exc_info=True)
         raise Http_error(405,Message.SCHEMA_NOT_VALID)

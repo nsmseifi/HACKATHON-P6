@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, JSON, Integer
+from sqlalchemy import Column, String, JSON, Integer, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from db_session import Base
@@ -11,16 +11,16 @@ class Receipt(PrimaryModel, Base):
     __tablename__ = 'receipts'
 
     title = Column(String, nullable=False)
-    payee_id = Column(UUID, ForeignKey=Store.id, nullable=False)
-    payer_id = Column(UUID, ForeignKey=Person.id, nullable=True)
+    payee_id = Column(UUID,  nullable=False)
+    payer_id = Column(UUID,  nullable=True)
     payer_name = Column(String)
     body = Column(JSON, nullable=False)
     total_payment = Column(Integer, unique=True, nullable=True)
     details = Column(JSON)
     status = Column(String, default='Waiting to Pay', nullable=False)
 
-    payee = relationship(Store, primaryjoin=payee_id == Store.id, lazy=True)
-    payer = relationship(Store, primaryjoin=payer_id == Person.id, lazy=True)
+    # payee = relationship(Store, lazy=True)
+    # payer = relationship(Store, primaryjoin=payer_id == Person.id, lazy=True)
 
     def __init__(self, username):
         super(Receipt, self).__init__(username)
@@ -35,8 +35,6 @@ class Receipt(PrimaryModel, Base):
             'modifier': self.modifier,
             'tags': self.tags,
             'title':self.title,
-            'payee':self.payee.to_dict(),
-            'payer':self.payer.to_dict(),
             'payee_id': self.payee_id,
             'payer_name':self.payer_name,
             'payer_id': self.payer_id,

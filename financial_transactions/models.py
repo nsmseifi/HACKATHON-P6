@@ -5,13 +5,15 @@ from db_session import Base
 from accounts.models import Account
 from payment.models import Payment
 from primary_model import PrimaryModel
+from receipt.models import Receipt
 
 
 class Transaction(PrimaryModel, Base):
 
     __tablename__ = 'transactions'
 
-    account_id = Column(UUID, ForeignKey(Account.id),nullable=False)
+    account_id = Column(UUID, ForeignKey(Account.id))
+    receipt_id = Column(UUID,ForeignKey(Receipt.id))
     credit = Column(Float, default=0.00)
     debit = Column(Float, default=0.00)
     payment_id = Column(UUID,ForeignKey(Payment.id))

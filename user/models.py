@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ForeignKey, Boolean
+from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from db_session import Base
@@ -17,16 +17,12 @@ class Person(PrimaryModel, Base):
     image = Column(UUID)
     email = Column(String, unique=True, nullable=True)
     cell_no = Column(String, unique=True)
-    current_book_id = Column(UUID)
-    bio = Column(String)
-    is_legal = Column(Boolean, default=False)
 
     def __init__(self, username):
         super(Person, self).__init__(username)
 
     @classmethod
     def populate(cls, data, username=None):
-        logger.debug(LogMsg.POPULATING_BASIC_DATA)
         instance = cls(username)
         for key, value in data.items():
             setattr(instance, key, value)
@@ -47,7 +43,6 @@ class Person(PrimaryModel, Base):
             'address': self.address,
             'bio': self.bio,
             'cell_no': self.cell_no,
-            'current_book_id': self.current_book_id,
             'email': self.email,
             'image': self.image,
             'name': self.name,
