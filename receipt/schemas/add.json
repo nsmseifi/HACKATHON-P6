@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "title": {
+      "type": "string"
+    },"total_payment": {
+      "type": "number"
+    },"details": {
+      "type": "object"
+    },
+    "body": {
+      "type": "object"
+    },
+    "payee_id": {
+      "type": "string",
+      "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+    },
+    "payer_name": {
+      "type": "string"    }
+  },
+  "required": [
+    "payee_id",
+    "total_payment"
+
+  ],
+  "additionalProperties": false
+}
