@@ -1,9 +1,4 @@
 alembic
 bottle
 jsonschema
-mongosql
-psycopg2-binary
-redis
-requests
-SQLAlchemy
-pyqrcode
+mongosql psycopg2-binary redis requests SQLAlchemy pyqrcode

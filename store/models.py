@@ -18,16 +18,6 @@ class Store(PrimaryModel, Base):
     def __init__(self, username):
         super(Store, self).__init__(username)
 
-    @classmethod
-    def populate(cls, data, username=None):
-        logger.debug(LogMsg.POPULATING_BASIC_DATA)
-        instance = cls(username)
-        for key, value in data.items():
-            setattr(instance, key, value)
-        cls.set_full_name(instance)
-        logger.debug(LogMsg.INSTANCE_POPULATED, instance.to_dict())
-        return instance
-
     def to_dict_(self):
 
         result = {

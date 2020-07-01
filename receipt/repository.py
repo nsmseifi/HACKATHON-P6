@@ -2,5 +2,5 @@ from repository_model import BasicRepository
 
 
 
-class StoreRepository(BasicRepository):
+class ReceiptRepository(BasicRepository):
     pass

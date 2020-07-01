@@ -1,26 +1,20 @@
-from sqlalchemy import Column, String, JSON, Integer, ForeignKey
+from sqlalchemy import Column, String, JSON, Integer, Float
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship
 from db_session import Base
 from primary_model import PrimaryModel
-from store.models import Store
-from user.models import Person
 
 
 class Receipt(PrimaryModel, Base):
     __tablename__ = 'receipts'
 
-    title = Column(String, nullable=False)
+    title = Column(String)
     payee_id = Column(UUID,  nullable=False)
     payer_id = Column(UUID,  nullable=True)
     payer_name = Column(String)
     body = Column(JSON, nullable=False)
-    total_payment = Column(Integer, unique=True, nullable=True)
+    total_payment = Column(Float, unique=True, nullable=True)
     details = Column(JSON)
-    status = Column(String, default='Waiting to Pay', nullable=False)
-
-    # payee = relationship(Store, lazy=True)
-    # payer = relationship(Store, primaryjoin=payer_id == Person.id, lazy=True)
+    status = Column(String, default='Waiting', nullable=False)
 
     def __init__(self, username):
         super(Receipt, self).__init__(username)

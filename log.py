@@ -117,3 +117,4 @@ class LogMsg:
     CHECK_USER_EXISTANCE = 'checking user if already exists'
     DATA_MISSING = 'required data doesnt exists in data : %s'
     SCHEMA_NOT_VALID = 'SCHEMA_NOT_VALID'
+    LOW_BALANCE = 'low balance in account'

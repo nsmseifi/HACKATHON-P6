@@ -67,7 +67,6 @@ class TransactionController(BasicController):
                                                                 schema_checked=True,
                                                                 permission_checked=True)
 
-        logger.debug(LogMsg.TRANSACTION_ADDED, model_instance.to_dict())
         logger.info(LogMsg.END)
 
         return model_instance.to_dict()

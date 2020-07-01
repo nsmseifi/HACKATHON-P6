@@ -13,39 +13,21 @@ save_path = os.environ.get('save_path')
 
 store_schemas = dict(add=STORE_ADD_SCHEMA_PATH)
 
+
 class StoreController(BasicController):
 
     def __init__(self):
         super(StoreController, self).__init__(Store, StoreRepository, store_schemas)
 
-    def add(self, db_session, data, username, schema_checked=False,
+    def add(self, db_session, data, username=None, schema_checked=False,
             permission_checked=False):
         logger.info(LogMsg.START, username)
 
-        if username is not None and username == SIGNUP_USER:
-            permission_checked = True
         name = data.get('name')
-        query_data = dict(filter=dict(name=name))
-        if name:
-            store_by_name = super(StoreController, self).get_by_data(query_data,
-                                                                     db_session)
-            if store_by_name is not None:
-                logger.error(LogMsg.ALREADY_EXISTS, {'name': name})
-                raise Http_error(409, Message.ALREADY_EXISTS)
-
-        email = data.get('email')
-
-        if email:
-            query_data = dict(filter=dict(email=email))
-            store_by_email = super(StoreController, self).get_by_data(query_data,
-                                                                      db_session)
-            if store_by_email is not None:
-                raise Http_error(409, Message.ALREADY_EXISTS)
-
-        data['store_code'] = '{}-{}'.format(name,randint(1000000,9999999))
+        data['store_code'] = '{}-{}'.format(name, randint(1000000, 9999999))
         model_instance = super(StoreController, self).add(data, db_session, username,
-                                                           schema_checked,
-                                                           permission_checked)
+                                                          schema_checked,
+                                                          permission_checked)
         logger.info(LogMsg.END)
         return model_instance.to_dict()
 
@@ -54,7 +36,7 @@ class StoreController(BasicController):
 
         logger.debug(LogMsg.MODEL_GETTING)
         store = super(StoreController, self).get(id, db_session, username,
-                                                   permission_checked)
+                                                 permission_checked)
         return store.to_dict()
 
     def edit(self, id, db_session, data, username, permission_checked=False):
@@ -70,7 +52,7 @@ class StoreController(BasicController):
             data['store_code'] = '{}-{}'.format(data['name'], randint(1000000, 9999999))
         try:
             super(StoreController, self).edit(id, data, db_session, username,
-                                               permission_checked)
+                                              permission_checked)
 
             logger.debug(LogMsg.MODEL_ALTERED, model_instance.to_dict())
 
@@ -88,7 +70,7 @@ class StoreController(BasicController):
         logger.info(LogMsg.DELETE_REQUEST, {'store_id': id})
         try:
             super(StoreController, self).delete(id, db_session, username,
-                                                 permission_checked)
+                                                permission_checked)
 
         except Exception as e:
             logger.exception(LogMsg.DELETE_FAILED, exc_info=True)
@@ -102,7 +84,7 @@ class StoreController(BasicController):
         logger.info(LogMsg.START, username)
         try:
             result = super(StoreController, self).get_all({}, db_session, username,
-                                                           permission_checked)
+                                                          permission_checked)
             logger.debug(LogMsg.GET_SUCCESS)
         except:
             logger.error(LogMsg.GET_FAILED)
@@ -115,7 +97,7 @@ class StoreController(BasicController):
         logger.debug(LogMsg.GET_ALL_REQUEST, {'username': username, 'data': data})
         try:
             stores = super(StoreController, self).get_all(data, db_session, username,
-                                                            permission_checked)
+                                                          permission_checked)
 
             result = [store.to_dict() for store in stores]
             logger.debug(LogMsg.GET_SUCCESS, result)
@@ -130,11 +112,12 @@ class StoreController(BasicController):
 
         logger.debug(LogMsg.MODEL_GETTING)
         model_instance = super(StoreController, self).get(id, db_session, username,
-                                                           permission_checked)
+                                                          permission_checked)
         result = model_instance.to_dict()
         logger.debug(LogMsg.GET_SUCCESS, result)
         logger.info(LogMsg.END)
 
         return result
+
 
 store_controller = StoreController()
