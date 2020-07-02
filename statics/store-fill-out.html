@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<!--
+	Ion by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>DREP - Register</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+        <script src="js/skel-layers.min.js"></script>
+        <script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+            <link rel="stylesheet" href="css/style-xlarge.css" />
+            <link rel="stylesheet" href="css/login.scss" />
+            <link rel="stylesheet" href="css/login.css" />
+            <link rel="stylesheet" href="css/store-r.css" />
+		</noscript>
+	</head>
+	<body id="top">
+
+		<!-- Header -->
+			<header id="header" class="skel-layers-fixed">
+				<h1><a href="index.html">DREP</a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="login.html" class="button special">Login</a></li>
+						<li><a href="register.html" class="button special">Register</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+        <div class="wrapper">
+            <form class="form-signin" action="https://httpbin.org/post" method="POST">       
+              <h2 class="form-signin-heading"> Receipt Details </h2>
+            
+              <div class="uuuu">
+                <label for="r-title"></label>
+                <input id="r-title" type="text" class="form-control" name="r-title" placeholder="Title" required="" autofocus="" />
+              </div>
+
+            
+              <div class="uuuu">
+                <label for="r-total"></label>
+                <input id="r-total" type="number" class="form-control" name="r-total" placeholder="Total Payment" required="" autofocus="" />
+              </div>
+              
+              <p> </p>
+
+              <div class="uuuu">
+                <label for="r-details"></label>
+                <textarea id="r-details" class="form-control" name="r-details" placeholder="Details" required="" autofocus="" /></textarea>
+              </div>
+
+          
+              <div class="uuuu" id="add-to-body">
+                <label for="r-body"></label>
+                <textarea id="r-body" type="textarea" class="form-control" name="r-body" placeholder="Body" required="" autofocus="" /></textarea>
+              </div>
+
+              <div class="add-new-input" >
+                <a href="#" id="filldetails" onclick="addFields()">Add Details</a>
+              </div>
+
+              <p> </p>
+
+              <div class="uuuu">
+                <label for="r-payeeID"></label>
+                <input id="r-payeeID" type="text" class="form-control" name="r-payeeID" placeholder="Payee ID" required="" autofocus="" pattern="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}" />
+              </div>
+            
+              <div class="uuuu">
+                <label for="r-payerName"></label>
+                <input id="r-payerName" type="text" class="form-control" name="r-payerName" placeholder="Payer Name" required="" autofocus="" />
+              </div>
+                
+              </label>
+              <div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" id="booton">Submit</button> 
+              </div>   
+            </form>
+          </div>
+
+
+		<!-- Footer -->
+		<footer id="footer">
+            <div class="container">
+                <div class="row double">
+                    <div class="6u">
+                        <div class="row collapse-at-2">
+                            <div class="6u">
+                                <h3>DREP</h3>
+                                <ul class="alt">
+                                    <li><a target="_blank" href="https://www.usatoday.com/story/money/2019/11/25/receipts-101-digital-receipts-grow-popularity-but-paper-still-king/4180900002/">Digital Receipts</a></li>
+                                    <li><a target="_blank" href="https://www.who.int/">WHO</a></li>
+                                </ul>
+                            </div>
+                            <div class="6u">
+                                <h3>The Team</h3>
+                                <ul class="alt">
+                                    <li><a href="https://www.senecacollege.ca/home.html" target="_blank">Seneca</a></li>
+                                    <li><a href="https://www.senecacollege.ca/school/software-design-and-data-science/seneca-hackathon.html" target="_blank">Hackathon</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="6u">
+                        <h2>About Us</h2>
+                        <p>DREP (Digital Receipts and Expense Payments) was created in solving the issue of paperless transactions. Covid-19 has impacted millions and to prevent furthur spread of fture viruses, our team developed a solution to limit hand to hand transmission.</p>
+                        <ul class="icons">
+                            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                            <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="copyright">
+                    <li>&copy; VISNK. All rights reserved.</li>
+                    <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+                    <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+                </ul>
+            </div>
+        </footer>
+        <script type='text/javascript'>
+            function addFields(){
+                var dummy = '<div id="todelete"><label for="r-body"></label> <textarea type="textarea" class="form-control" name="r-body" placeholder="Body" required="" autofocus="" /></textarea> <a href="#" id="filldetails" onclick="deleteForm()">Delete</a> </div>';
+                document.getElementById('add-to-body').innerHTML += dummy;    
+            }
+
+
+            function deleteForm() {
+                var myobj = document.getElementById("todelete");
+                myobj.remove();
+            }
+
+            let receipt_data = [];
+         
+            const submitRegistraion = (ev)=>{
+                ev.preventDefault();  //to stop the form submitting
+                var receipt_data = {
+                    title: document.getElementById('r-title').value,
+                    total: document.getElementById('r-total').value,
+                    details: document.getElementById('r-details').value,
+                    body: document.getElementById('r-body').value,
+                    payeeID: document.getElementById('r-payeeID').value,
+                    payerName: document.getElementById('r-payerName').value
+                };
+                
+                for (var i = 0; i < receipt_data.length ; i++) {
+                    receipt_data.push(receipt_data[i]);
+
+                }
+
+                console.log(receipt_data)
+                document.forms[0].reset(); // to clear the form for the next entries
+                //document.querySelector('form').reset();
+
+                //saving to localStorage
+                localStorage.setItem('receipt_data', JSON.stringify(receipt_data) );
+            }
+
+        
+
+
+            document.addEventListener('DOMContentLoaded', ()=>{
+            document.getElementById('booton').addEventListener('click', submitRegistraion);
+            });
+
+        </script>
+
+	</body>
+</html>
+
