@@ -16,7 +16,7 @@
       "type": "object"
     },
     "body": {
-      "type": "object"
+      "type": "array"
     },
     "payee_id": {
       "type": "string",
@@ -32,5 +32,5 @@
     "total_payment"
 
   ],
-  "additionalProperties": false
+  "additionalProperties": true
 }

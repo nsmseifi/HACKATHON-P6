@@ -5,6 +5,7 @@ from enums import Permissions
 from log import LogMsg, logger
 from helper import Http_error
 from messages import Message
+from store.controller import store_controller
 from user.models import User
 from ..constants import USER_ADD_SCHEMA_PATH, USER_EDIT_SCHEMA_PATH
 from ..repository import UserRepository
@@ -76,6 +77,8 @@ class UserController(BasicController):
         result['account_info'] = account_controller.profile_account_info(user.person_id,
                                                                          db_session,
                                                                          username) or None
+
+        result['store'] = store_controller.get(user.person_id,db_session)
         logger.info(LogMsg.END)
 
         return result

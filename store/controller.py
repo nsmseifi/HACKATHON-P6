@@ -5,7 +5,6 @@ from helper import Http_error, Http_response
 from log import LogMsg, logger
 from messages import Message
 from .models import Store
-from configs import SIGNUP_USER
 from .constants import STORE_ADD_SCHEMA_PATH
 from .repository import StoreRepository
 

@@ -75,6 +75,7 @@ logging.basicConfig(
 
 
 class LogMsg:
+    COMMIT_ERROR="Commit Error"
     START = "function is called -- user is : %s "
     END = "function finished successfully "
     ADDING_ERR = "adding model to database encountered a problem  "

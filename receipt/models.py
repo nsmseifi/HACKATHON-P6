@@ -13,6 +13,9 @@ class Receipt(PrimaryModel, Base):
     payer_name = Column(String)
     body = Column(JSON, nullable=False)
     total_payment = Column(Float, unique=True, nullable=True)
+    subtotal = Column(Float, unique=True, nullable=True)
+    hst = Column(Float, unique=True, nullable=True)
+
     details = Column(JSON)
     status = Column(String, default='Waiting', nullable=False)
 
@@ -35,6 +38,8 @@ class Receipt(PrimaryModel, Base):
             'status':self.status,
             'body':self.body,
             'total_payment':self.total_payment,
-            'details':self.details
+            'details':self.details,
+            'subtotal':self.subtotal,
+            'hst':self.hst
         }
         return result

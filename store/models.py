@@ -14,6 +14,7 @@ class Store(PrimaryModel, Base):
     image = Column(UUID)
     email = Column(String, unique=True, nullable=True)
     store_code = Column(String,unique=True,nullable=False)
+    account_id = Column(String)
 
     def __init__(self, username):
         super(Store, self).__init__(username)

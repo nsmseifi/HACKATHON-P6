@@ -1,4 +1,5 @@
 import datetime
+import os
 from os import environ
 import time
 from base64 import b64encode, b64decode
@@ -10,6 +11,8 @@ from user.models import User
 from db_session import Session
 import json
 
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 # AUTHORIZATION ACTIONS
 
@@ -57,43 +60,61 @@ def check_login():
 
 def check_Authorization():
     db_session = get_db_session()
-    auth = request.get_header('Authorization')
-    if auth is None:
-        raise Http_error(401, Message.NO_AUTH)
+    userid=request.get_cookie("userid")
+    if userid is None:
+        raise HTTPResponse(status=302,headers=dict(location="/statics/login.html"))
+    u = db_session.query(User).filter(User.id==userid).first()
+    if u is None:
+        raise HTTPResponse(status=302,headers=dict(location="/statics/login.html"))
+    return model_to_dict(u)
 
-    username, password = decode(auth)
+    # auth = request.get_header('Authorization')
+    # if auth is None :
+    #     raise Http_error(401, Message.NO_AUTH)
 
-    if password is None:
-        return model_to_dict(validate_token(username, db_session))
-
-    else:
-        user = db_session.query(User).filter(User.username == username,
-                                             User.password == password).first()
-
-        if user is None:
-            raise Http_error(401, Message.INVALID_USERNAME)
-        return model_to_dict(user)
+    # username, password = decode(auth)
+    #
+    # if password is None:
+    #     return model_to_dict(validate_token(username, db_session))
+    #
+    # else:
+    #     user = db_session.query(User).filter(User.username == username,
+    #                                          User.password == password).first()
+    #
+    #     if user is None:
+    #         raise Http_error(401, Message.INVALID_USERNAME)
+    #     return model_to_dict(user)
 
 
 
 def check_unrequired_Authorization():
     db_session = get_db_session()
-    auth = request.get_header('Authorization')
-    if auth is None:
+    userid=request.get_cookie("userid")
+    if userid is None:
         return {'username':None}
-    username, password = decode(auth)
-
-    if password is None:
-        return model_to_dict(validate_token(username, db_session))
-
-    else:
-        user = db_session.query(User).filter(User.username == username,
-                                             User.password == password).first()
-
-        if user is None:
-            return {'username':None}
-        return model_to_dict(user)
-
+    u = db_session.query(User).filter(User.id==userid).first()
+    if u is None:
+        return {'username':None}
+    return model_to_dict(u)
+    #
+    #
+    # db_session = get_db_session()
+    # auth = request.get_header('Authorization')
+    # if auth is None:
+    #     return {'username':None}
+    # username, password = decode(auth)
+    #
+    # if password is None:
+    #     return model_to_dict(validate_token(username, db_session))
+    #
+    # else:
+    #     user = db_session.query(User).filter(User.username == username,
+    #                                          User.password == password).first()
+    #
+    #     if user is None:
+    #         return {'username':None}
+    #     return model_to_dict(user)
+    #
 
 def encode(username, password):
     """Returns an HTTP basic authentication encrypted string given a valid
@@ -193,6 +214,7 @@ def get_db_session():
 def inject_db(func):
     def wrapper(*args, **kwargs):
         kwargs['db_session'] = get_db_session()
+
 
         # generate_RID()
         rtn = func(*args, **kwargs)

@@ -132,7 +132,7 @@ class ReceiptController(BasicController):
         return self.get_all_by_data(data, db_session)
 
     def generate_QR(self,receipt_id):
-            url_str = '35.224.21.228/receipts/{}'.format(receipt_id)
+            url_str = 'https://drep.xyz/statics/show-receipt/{}'.format(receipt_id)
             url = pyqrcode.create(url_str)
             filename = 'Receipt_QR_{}.png'.format(randint(100000,999999))
             url.png('{}/{}'.format(save_path,filename), scale=6, module_color=[0, 0, 0, 128],
