@@ -10,18 +10,18 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-            <link rel="stylesheet" href="css/style-xlarge.css" />
-            <link rel="stylesheet" href="css/login.scss" />
-            <link rel="stylesheet" href="css/login.css" />
-		</noscript>
+		<!--[if lte IE 8]><script src="/statics/js/html5shiv.js"></script><![endif]-->
+		<script src="/statics/js/jquery.min.js"></script>
+		<script src="/statics/js/skel.min.js"></script>
+		<script src="/statics/js/skel-layers.min.js"></script>
+		<script src="/statics/js/init.js"></script>
+<!--		<noscript>-->
+			<link rel="stylesheet" href="/statics/css/skel.css" />
+			<link rel="stylesheet" href="/statics/css/style.css" />
+            <link rel="stylesheet" href="/statics/css/style-xlarge.css" />
+            <link rel="stylesheet" href="/statics/css/login.scss" />
+            <link rel="stylesheet" href="/statics/css/login.css" />
+<!--		</noscript>-->
 	</head>
 	<body id="top">
 

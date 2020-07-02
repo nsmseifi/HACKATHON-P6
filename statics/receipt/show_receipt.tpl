@@ -192,20 +192,17 @@
                 </td>
             </tr>
         </table>
-    %if user:
 
-        <form>
+        <form action="../pay_receipt/{{rcp['id']}}" method="post">
+            %if user:
+                <button type="submit" name="pay_by_account" value="pay_by_account">Pay By My Account</button>
+            %end
+            %if user is None:
+                         <button type="submit" name="login" value="login">Login</button>
 
-            <button type="submit">Pay By My Account</button>
-            <button type="submit">Pay By Paypal</button>
+            %end
+            <button type="submit" name="paypal" value="paypal">Pay By Paypal</button>
         </form>
-    %end
-    %if user is None:
-     <form>
-             <button type="submit">Login</button>
-            <button type="submit">Pay By Paypal</button>
-        </form>
-    %end
 
     </div>
 <div>

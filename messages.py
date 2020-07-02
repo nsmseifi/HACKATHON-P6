@@ -22,4 +22,5 @@ class Message:
     ORDER_INVOICED = 'order_invoiced'
     COMMIT_ERROR = 'commit_error'
     SCHEMA_NOT_VALID = 'schema_invalid'
+    ALREADY_PAID = 'already paid'
 

@@ -94,6 +94,8 @@ class ReceiptController(BasicController):
         receipt = self.internal_get(id,db_session,username)
         if receipt is None:
             raise Http_error(404,Message.NOT_FOUND)
+        if receipt.status == 'Paid':
+            raise Http_error(409,Message.ALREADY_PAID)
 
         if username is None:
         #       paypal pay

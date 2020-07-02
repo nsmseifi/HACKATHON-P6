@@ -1,5 +1,5 @@
 from .controller import js_serve, fonts_serve, css_serve, images_serve, html_serve
-from .actions_controller import userSingUp, storeSingUp, login
+from .actions_controller import userSingUp, storeSingUp, login, pay_receipt
 from .dynpages_controller import home_store, store_receipts, store_add_new_receipt_page, store_add_new_receipt,show_receipt_to_pay
 from helper import check_auth, inject_db, jsonify, pass_data, timeit, \
     check_unrequirde_auth
@@ -24,3 +24,5 @@ def call_router(app):
     app.route('/statics/add-new-receipt','GET',store_add_new_receipt_page,apply=[pass_data,inject_db,check_auth])
     app.route('/statics/add-new-receipt','POST',store_add_new_receipt,apply=[pass_data,inject_db,check_auth])
     app.route('/statics/show-receipt/<rcp_id>','GET',show_receipt_to_pay,apply=[pass_data,inject_db,check_unrequirde_auth])
+
+    app.route('/statics/pay_receipt/<rcp_id>','POST',pay_receipt,apply=[pass_data,inject_db,check_unrequirde_auth])
