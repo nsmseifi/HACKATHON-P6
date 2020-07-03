@@ -1,9 +1,9 @@
 
-export db_name='online_library'
+export db_name='drep'
 export host_name='localhost'
 export host_port='5432'
-export db_username='libuser'
-export db_password='libpass'
+export db_username='drepuser'
+export db_password='dreppass'
 export app_host='0.0.0.0'
 export app_port='8000'
 export token_expiration_interval='6000'
